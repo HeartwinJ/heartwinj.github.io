@@ -1,0 +1,18 @@
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@200;400&display=swap");
+
+@import "tailwindcss";
+
+@theme {
+  --font-montserrat: "Montserrat", sans-serif;
+
+  @keyframes boxFloat {
+    from {
+      bottom: -10%;
+      transform: rotate(0deg);
+    }
+    to {
+      bottom: 110%;
+      transform: rotate(360deg);
+    }
+  }
+}
