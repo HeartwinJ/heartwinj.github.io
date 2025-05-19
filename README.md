@@ -1,12 +1,21 @@
-# React + Vite
+# Heartwin Haveluck's Personal Website
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Welcome to my personal website! Here you'll find information about me, my projects, and ways to get in touch.
 
-Currently, two official plugins are available:
+## About Me
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+I'm Heartwin Haveluck, a software developer passionate about building web applications, exploring new technologies, and sharing knowledge with the community.
 
-## Expanding the ESLint configuration
+## Projects
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+- **[heartwinhaveluck.com](https://heartwinhaveluck.com/)**: This website, built with React and Vite.
+- **[GitHub Profile](https://github.com/heartwinj)**: Explore more of my open source work.
+
+## Contact
+
+Feel free to connect with me:
+
+- [Email](mailto:heartwinhaveluck@gmail.com)
+- [LinkedIn](https://www.linkedin.com/in/heartwin-haveluck/)
+
+Thanks for visiting!
