@@ -1,5 +1,32 @@
 import { CircleIcon } from "@phosphor-icons/react";
 
+const experiences = [
+  {
+    companyName: "Winjit Technologies",
+    position: "Full Stack Developer (Jan 2022 - Present)",
+    description:
+      "Led and launched core projects, improved web presence, and maintained code quality using VueJS and TailwindCSS.",
+  },
+  {
+    companyName: "Serturner",
+    position: "Full Stack Developer (Apr 2021 - Sep 2021)",
+    description:
+      "Implemented various optimization techniques to improve performance of the company's website and webstore",
+  },
+  {
+    companyName: "Frelance Developer",
+    position: "Multiple roles (2021 - Present)",
+    description:
+      "Worked on various freelance projects, including web and mobile applications, using technologies like React, Node.js, and Flutter.",
+  },
+  {
+    companyName: "Insfyre",
+    position: "Intern Flutter Developer (Oct 2020 - Feb 2021)",
+    description:
+      "Designed and developed multiple mobile applications using Flutter, contributing to the startup's product offerings",
+  },
+];
+
 function Experience() {
   return (
     <section className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
@@ -10,56 +37,22 @@ function Experience() {
           mobile apps. Here are some highlights of my professional journey.
         </p>
         <ol className="relative border-l border-gray-300">
-          <li className="mb-12 ml-6">
-            <span className="absolute flex items-center justify-center w-8 h-8 bg-white rounded-full -left-4 ring-4 ring-white">
-              <CircleIcon size={32} weight="duotone" />
-            </span>
-            <div>
-              <h3 className="text-lg font-semibold text-gray-900">
-                Company A{" "}
-                <span className="text-sm font-normal text-gray-500">
-                  Frontend Developer (2020-2022)
-                </span>
-              </h3>
-              <p className="text-gray-700 mt-2">
-                Worked on building scalable web applications using React and
-                TypeScript.
-              </p>
-            </div>
-          </li>
-          <li className="mb-12 ml-6">
-            <span className="absolute flex items-center justify-center w-8 h-8 bg-white rounded-full -left-4 ring-4 ring-white">
-              <CircleIcon size={32} weight="duotone" />
-            </span>
-            <div>
-              <h3 className="text-lg font-semibold text-gray-900">
-                Company B{" "}
-                <span className="text-sm font-normal text-gray-500">
-                  Full Stack Developer (2018-2020)
-                </span>
-              </h3>
-              <p className="text-gray-700 mt-2">
-                Developed REST APIs and contributed to both backend and frontend
-                projects.
-              </p>
-            </div>
-          </li>
-          <li className="ml-6">
-            <span className="absolute flex items-center justify-center w-8 h-8 bg-white rounded-full -left-4 ring-4 ring-white">
-              <CircleIcon size={32} weight="duotone" />
-            </span>
-            <div>
-              <h3 className="text-lg font-semibold text-gray-900">
-                Company C{" "}
-                <span className="text-sm font-normal text-gray-500">
-                  Intern (2017-2018)
-                </span>
-              </h3>
-              <p className="text-gray-700 mt-2">
-                Assisted in developing internal tools and automation scripts.
-              </p>
-            </div>
-          </li>
+          {experiences.map((exp, index) => (
+            <li key={index} className="mb-12 ml-6">
+              <span className="absolute flex items-center justify-center w-8 h-8 bg-white rounded-full -left-4 ring-4 ring-white">
+                <CircleIcon size={32} weight="duotone" />
+              </span>
+              <div>
+                <h3 className="text-lg font-semibold text-gray-900">
+                  {exp.companyName}{" "}
+                  <span className="text-sm font-normal text-gray-500">
+                    {exp.position}
+                  </span>
+                </h3>
+                <p className="text-gray-700 mt-2">{exp.description}</p>
+              </div>
+            </li>
+          ))}
         </ol>
       </div>
     </section>
