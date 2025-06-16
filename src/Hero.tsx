@@ -1,26 +1,80 @@
 import { CaretDownIcon } from "@phosphor-icons/react";
+import Silk from "./Silk";
+import SplitText from "./SplitText";
+import RotatingText from "./RotatingText";
+import { LayoutGroup, motion } from "framer-motion";
 
 function Hero() {
   return (
-    <section className="h-screen w-screen bg-neutral-900 text-white px-4 sm:px-6 lg:px-8">
+    <section className="h-screen w-screen bg-neutral-900 text-white relative ">
+      <div className="absolute inset-0">
+        <Silk />
+      </div>
       <div className="max-w-6xl mx-auto py-12 px-4 h-full flex flex-col items-start md:items-center justify-between relative">
-        <div className="absolute size-full overflow-hidden">
-          <div className="relative size-full">
-            <div className="absolute bottom-[-100%] right-[10%] w-[100px] rounded-[12px] aspect-square bg-white/50 animate-[boxFloat_20s_ease-out_infinite]"></div>
-            <div className="absolute bottom-[-100%] right-[40%] w-[200px] rounded-[16px] aspect-square bg-white/50 animate-[boxFloat_40s_6s_ease-out_infinite]"></div>
-            <div className="absolute bottom-[-100%] right-[20%] w-[50px] rounded-[8px] aspect-square bg-white/50 animate-[boxFloat_15s_9s_ease-out_infinite]"></div>
-            <div className="absolute bottom-[-100%] right-[60%] w-[100px] rounded-[12px] aspect-square bg-white/50 animate-[boxFloat_25s_3s_ease-out_infinite]"></div>
-            <div className="absolute bottom-[-100%] right-[30%] w-[150px] rounded-[15px] aspect-square bg-white/50 animate-[boxFloat_28s_12s_ease-out_infinite]"></div>
-          </div>
-        </div>
         <div />
         <div>
-          <div className="text-2xl md:text-4xl lg:text-6xl">Hello! I'm</div>
-          <div className="font-bold text-4xl md:text-6xl lg:text-8xl">
+          {/* <div className="text-2xl md:text-4xl lg:text-6xl">Hello! I'm</div> */}
+          {/* <div className="font-bold text-4xl md:text-6xl lg:text-8xl">
             Heartwin Haveluck
+          </div> */}
+          <div>
+            <SplitText
+              text="Hello, There!"
+              className="text-2xl md:text-4xl lg:text-6xl text-center"
+              delay={10}
+              duration={0.5}
+              ease="power3.out"
+              splitType="words"
+              from={{ opacity: 0, y: 40 }}
+              to={{ opacity: 1, y: 0 }}
+              threshold={0.1}
+              rootMargin="-100px"
+              textAlign="center"
+            />
           </div>
-          <div className="text-sm md:text-center md:text-lg lg:text-xl mt-5">
-            Full Stack Developer | AI Specialist | Flutter Developer
+          <div>
+            <SplitText
+              text="I'm Heartwin"
+              className="block font-bold text-4xl md:text-6xl lg:text-8xl text-center"
+              delay={100}
+              duration={0.6}
+              ease="power3.out"
+              splitType="chars"
+              from={{ opacity: 0, y: 40 }}
+              to={{ opacity: 1, y: 0 }}
+              threshold={0.1}
+              rootMargin="-100px"
+              textAlign="center"
+            />
+          </div>
+          <div className="flex justify-center items-center">
+            <LayoutGroup>
+              <motion.p className="flex items-center gap-1" layout>
+                <motion.span
+                  layout
+                  transition={{ type: "spring", damping: 30, stiffness: 400 }}
+                >
+                  Your freindly neighborhood{" "}
+                </motion.span>
+                <RotatingText
+                  texts={[
+                    "Frontend Developer",
+                    "Backend Developer",
+                    "Flutter Developer",
+                    "AI Specialist",
+                  ]}
+                  mainClassName="flex justify-center overflow-hidden px-2 py-1 bg-white text-black rounded-lg"
+                  staggerFrom={"last"}
+                  initial={{ y: "100%" }}
+                  animate={{ y: 0 }}
+                  exit={{ y: "-120%" }}
+                  staggerDuration={0.025}
+                  splitLevelClassName="overflow-hidden pb-0.5 font-bold"
+                  transition={{ type: "spring", damping: 30, stiffness: 400 }}
+                  rotationInterval={2000}
+                />
+              </motion.p>
+            </LayoutGroup>
           </div>
         </div>
         <div className="p-3 animate-bounce">
