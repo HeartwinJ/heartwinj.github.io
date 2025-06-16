@@ -8,7 +8,7 @@ function Hero() {
   return (
     <section className="h-screen w-screen bg-neutral-900 text-white relative ">
       <div className="absolute inset-0">
-        <Silk />
+        <Silk color="#BE7A57" />
       </div>
       <div className="max-w-6xl mx-auto py-12 px-4 h-full flex flex-col items-start md:items-center justify-between relative">
         <div />
