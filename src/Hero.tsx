@@ -54,7 +54,7 @@ function Hero() {
                   layout
                   transition={{ type: "spring", damping: 30, stiffness: 400 }}
                 >
-                  Your freindly neighborhood{" "}
+                  Your friendly neighborhood{" "}
                 </motion.span>
                 <RotatingText
                   texts={[
