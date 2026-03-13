@@ -1,18 +1,38 @@
-import About from "./About";
-import Divider from "./Divider";
-import Experience from "./Experience";
-import Footer from "./Footer";
-import Hero from "./Hero";
+// Components (created by other workers)
+import Navbar from "./components/Navbar";
+import ScrollProgress from "./components/ScrollProgress";
+import CustomCursor from "./components/CustomCursor";
+import SmoothScroll from "./components/SmoothScroll";
+import AmbientOrbs from "./components/AmbientOrbs";
+
+// Sections (created by other workers)
+import HeroSection from "./sections/HeroSection";
+import AboutSection from "./sections/AboutSection";
+import SkillsSection from "./sections/SkillsSection";
+import ExperienceSection from "./sections/ExperienceSection";
+import ProjectsSection from "./sections/ProjectsSection";
+import ContactSection from "./sections/ContactSection";
+import FooterSection from "./sections/FooterSection";
 
 function App() {
   return (
-    <div className="font-montserrat">
-      <Hero />
-      <About />
-      <Divider />
-      <Experience />
-      <Footer />
-    </div>
+    <SmoothScroll>
+      <div className="font-montserrat bg-cosmic-bg text-[#f0f0f0] relative overflow-x-hidden">
+        <CustomCursor />
+        <ScrollProgress />
+        <Navbar />
+        <AmbientOrbs />
+        <main>
+          <HeroSection />
+          <AboutSection />
+          <SkillsSection />
+          <ExperienceSection />
+          <ProjectsSection />
+          <ContactSection />
+        </main>
+        <FooterSection />
+      </div>
+    </SmoothScroll>
   );
 }
 
