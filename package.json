@@ -11,7 +11,9 @@
   },
   "dependencies": {
     "@phosphor-icons/react": "^2.1.8",
+    "@react-three/drei": "^10.7.7",
     "@react-three/fiber": "^9.1.2",
+    "@react-three/postprocessing": "^3.0.4",
     "@tailwindcss/vite": "^4.1.7",
     "framer-motion": "^12.18.1",
     "gsap": "^3.13.0",
