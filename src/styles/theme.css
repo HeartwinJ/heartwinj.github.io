@@ -1,0 +1,110 @@
+@import "tailwindcss";
+
+@theme {
+  --color-cosmic-bg: #0a0a1a;
+  --color-cosmic-surface: rgba(255, 255, 255, 0.05);
+  --color-cosmic-border: rgba(255, 255, 255, 0.1);
+  --color-cosmic-text: #f0f0f0;
+  --color-cosmic-text-secondary: #a0a0b0;
+  --color-accent-cyan: #00d4ff;
+  --color-accent-purple: #7928ca;
+  --color-accent-pink: #ff0080;
+}
+
+/* ── Glassmorphism utilities ─────────────────────────────────── */
+
+.glass {
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 1rem;
+}
+
+.glass-strong {
+  background: rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(32px);
+  -webkit-backdrop-filter: blur(32px);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 1rem;
+}
+
+/* ── Gradient utilities ──────────────────────────────────────── */
+
+.gradient-text {
+  background: linear-gradient(135deg, #00d4ff, #7928ca, #ff0080);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.gradient-bg {
+  background: linear-gradient(135deg, #00d4ff, #7928ca, #ff0080);
+}
+
+.gradient-border {
+  position: relative;
+  border: none;
+}
+
+.gradient-border::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  padding: 1px;
+  border-radius: inherit;
+  background: linear-gradient(135deg, #00d4ff, #7928ca, #ff0080);
+  mask:
+    linear-gradient(#fff 0 0) content-box,
+    linear-gradient(#fff 0 0);
+  mask-composite: exclude;
+  -webkit-mask:
+    linear-gradient(#fff 0 0) content-box,
+    linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  pointer-events: none;
+}
+
+/* ── Animated gradient background ────────────────────────────── */
+
+@keyframes gradient-shift {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+.gradient-animated {
+  background: linear-gradient(135deg, #00d4ff, #7928ca, #ff0080, #00d4ff);
+  background-size: 300% 300%;
+  animation: gradient-shift 6s ease infinite;
+}
+
+.gradient-text-animated {
+  background: linear-gradient(135deg, #00d4ff, #7928ca, #ff0080, #00d4ff);
+  background-size: 300% 300%;
+  animation: gradient-shift 6s ease infinite;
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* ── Glow effects ────────────────────────────────────────────── */
+
+.glow-cyan {
+  box-shadow: 0 0 20px rgba(0, 212, 255, 0.3), 0 0 60px rgba(0, 212, 255, 0.1);
+}
+
+.glow-purple {
+  box-shadow: 0 0 20px rgba(121, 40, 202, 0.3),
+    0 0 60px rgba(121, 40, 202, 0.1);
+}
+
+.glow-pink {
+  box-shadow: 0 0 20px rgba(255, 0, 128, 0.3), 0 0 60px rgba(255, 0, 128, 0.1);
+}
