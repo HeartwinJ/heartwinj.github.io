@@ -62,43 +62,21 @@ function AmbientOrbs() {
               background: `radial-gradient(circle, ${orb.color} 0%, transparent 70%)`,
               filter: "blur(100px)",
               opacity: orb.opacity,
-              animation: `ambientFloat${i} ${orb.animationDuration} ease-in-out infinite`,
+              animation: `ambientFloat ${orb.animationDuration} ease-in-out infinite`,
               animationDelay: orb.animationDelay,
+              willChange: "transform",
+              contain: "layout style paint",
             }}
           />
         ))}
       </div>
 
       <style>{`
-        @keyframes ambientFloat0 {
-          0%, 100% { transform: translate(0, 0); }
-          25% { transform: translate(40px, -60px); }
-          50% { transform: translate(-30px, 40px); }
-          75% { transform: translate(50px, 20px); }
-        }
-        @keyframes ambientFloat1 {
-          0%, 100% { transform: translate(0, 0); }
-          25% { transform: translate(-50px, 30px); }
-          50% { transform: translate(40px, -40px); }
-          75% { transform: translate(-20px, 50px); }
-        }
-        @keyframes ambientFloat2 {
-          0%, 100% { transform: translate(0, 0); }
-          25% { transform: translate(30px, 50px); }
-          50% { transform: translate(-50px, -20px); }
-          75% { transform: translate(40px, -30px); }
-        }
-        @keyframes ambientFloat3 {
-          0%, 100% { transform: translate(0, 0); }
-          25% { transform: translate(-40px, -30px); }
-          50% { transform: translate(30px, 50px); }
-          75% { transform: translate(-50px, 10px); }
-        }
-        @keyframes ambientFloat4 {
-          0%, 100% { transform: translate(0, 0); }
-          25% { transform: translate(50px, 40px); }
-          50% { transform: translate(-30px, -50px); }
-          75% { transform: translate(20px, 30px); }
+        @keyframes ambientFloat {
+          0%, 100% { transform: translate3d(0, 0, 0); }
+          25% { transform: translate3d(40px, -50px, 0); }
+          50% { transform: translate3d(-30px, 40px, 0); }
+          75% { transform: translate3d(50px, 20px, 0); }
         }
       `}</style>
     </>

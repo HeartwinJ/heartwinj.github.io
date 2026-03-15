@@ -80,7 +80,9 @@ function ContactSection() {
             background:
               "radial-gradient(circle, #7928ca 0%, transparent 70%)",
             filter: "blur(80px)",
-            animation: "contactOrb1 12s ease-in-out infinite",
+            animation: "contactOrb 12s ease-in-out infinite",
+            willChange: "transform",
+            contain: "layout style paint",
           }}
         />
         <div
@@ -89,7 +91,9 @@ function ContactSection() {
             background:
               "radial-gradient(circle, #00d4ff 0%, transparent 70%)",
             filter: "blur(80px)",
-            animation: "contactOrb2 10s ease-in-out infinite",
+            animation: "contactOrb 10s ease-in-out infinite reverse",
+            willChange: "transform",
+            contain: "layout style paint",
           }}
         />
         <div
@@ -98,7 +102,9 @@ function ContactSection() {
             background:
               "radial-gradient(circle, #ff0080 0%, transparent 70%)",
             filter: "blur(100px)",
-            animation: "contactOrb3 14s ease-in-out infinite",
+            animation: "contactOrb 14s ease-in-out infinite",
+            willChange: "transform",
+            contain: "layout style paint",
           }}
         />
       </div>
@@ -182,19 +188,10 @@ function ContactSection() {
 
       {/* Keyframe animations */}
       <style>{`
-        @keyframes contactOrb1 {
-          0%, 100% { transform: translate(0, 0); }
-          33% { transform: translate(60px, -40px); }
-          66% { transform: translate(-40px, 30px); }
-        }
-        @keyframes contactOrb2 {
-          0%, 100% { transform: translate(0, 0); }
-          33% { transform: translate(-50px, 40px); }
-          66% { transform: translate(30px, -50px); }
-        }
-        @keyframes contactOrb3 {
-          0%, 100% { transform: translate(-50%, -50%) scale(1); }
-          50% { transform: translate(-50%, -50%) scale(1.15); }
+        @keyframes contactOrb {
+          0%, 100% { transform: translate3d(0, 0, 0); }
+          33% { transform: translate3d(50px, -40px, 0); }
+          66% { transform: translate3d(-40px, 30px, 0); }
         }
       `}</style>
     </section>
