@@ -9,6 +9,7 @@ const categoryGradients: Record<ProjectItem["category"], string> = {
   web: "linear-gradient(135deg, #00d4ff 0%, #7928ca 100%)",
   mobile: "linear-gradient(135deg, #7928ca 0%, #ff0080 100%)",
   ai: "linear-gradient(135deg, #ff0080 0%, #00d4ff 100%)",
+  other: "linear-gradient(135deg, #00d4ff 0%, #ff0080 100%)",
 };
 
 function ProjectCard({
@@ -90,28 +91,32 @@ function ProjectCard({
           </div>
 
           {/* Links */}
-          <div className="flex items-center gap-3 mt-4 pt-4 border-t border-white/10">
-            <a
-              href={githubUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="flex items-center gap-1.5 text-sm text-[#a0a0b0] hover:text-[#00d4ff] transition-colors duration-200"
-            >
-              <GithubLogo size={18} weight="bold" />
-              <span>Source</span>
-            </a>
-            {liveUrl && (
-              <a
-                href={liveUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="flex items-center gap-1.5 text-sm text-[#a0a0b0] hover:text-[#ff0080] transition-colors duration-200"
-              >
-                <ArrowSquareOut size={18} weight="bold" />
-                <span>Live Demo</span>
-              </a>
-            )}
-          </div>
+          {(githubUrl || liveUrl) && (
+            <div className="flex items-center gap-3 mt-4 pt-4 border-t border-white/10">
+              {githubUrl && (
+                <a
+                  href={githubUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center gap-1.5 text-sm text-[#a0a0b0] hover:text-[#00d4ff] transition-colors duration-200"
+                >
+                  <GithubLogo size={18} weight="bold" />
+                  <span>Source</span>
+                </a>
+              )}
+              {liveUrl && (
+                <a
+                  href={liveUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center gap-1.5 text-sm text-[#a0a0b0] hover:text-[#ff0080] transition-colors duration-200"
+                >
+                  <ArrowSquareOut size={18} weight="bold" />
+                  <span>Live Demo</span>
+                </a>
+              )}
+            </div>
+          )}
         </div>
       </div>
     </motion.div>

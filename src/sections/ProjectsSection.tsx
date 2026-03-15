@@ -7,13 +7,14 @@ import { projects } from "../data/projects";
 
 gsap.registerPlugin(ScrollTrigger);
 
-type FilterCategory = "all" | "web" | "mobile" | "ai";
+type FilterCategory = "all" | "web" | "mobile" | "ai" | "other";
 
 const filterTabs: { label: string; value: FilterCategory }[] = [
   { label: "All", value: "all" },
   { label: "Web", value: "web" },
   { label: "Mobile", value: "mobile" },
   { label: "AI", value: "ai" },
+  { label: "Other", value: "other" },
 ];
 
 function ProjectsSection() {
@@ -133,19 +134,34 @@ function ProjectsSection() {
           className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
         >
           <AnimatePresence mode="popLayout">
-            {filteredProjects.map((project) => (
+            {filteredProjects.length > 0 ? (
+              filteredProjects.map((project) => (
+                <motion.div
+                  key={project.title}
+                  data-project-card
+                  layout
+                  initial={{ opacity: 0, scale: 0.9 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  exit={{ opacity: 0, scale: 0.9 }}
+                  transition={{ duration: 0.3, ease: "easeOut" }}
+                >
+                  <ProjectCard {...project} />
+                </motion.div>
+              ))
+            ) : (
               <motion.div
-                key={project.title}
-                data-project-card
-                layout
-                initial={{ opacity: 0, scale: 0.9 }}
-                animate={{ opacity: 1, scale: 1 }}
-                exit={{ opacity: 0, scale: 0.9 }}
-                transition={{ duration: 0.3, ease: "easeOut" }}
+                key="empty"
+                className="col-span-full py-16 text-center"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                transition={{ duration: 0.3 }}
               >
-                <ProjectCard {...project} />
+                <p className="text-lg text-[#a0a0b0]">
+                  No projects in this category yet.
+                </p>
               </motion.div>
-            ))}
+            )}
           </AnimatePresence>
         </div>
       </div>
