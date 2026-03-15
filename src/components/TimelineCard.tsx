@@ -78,9 +78,9 @@ function TimelineCard({
       {/* Card */}
       <div
         ref={cardRef}
-        className={`w-full md:w-[calc(50%-2rem)] opacity-0 ${
-          isLeft ? "md:mr-auto" : "md:ml-auto"
-        } ml-8 md:ml-0`}
+        className={`w-[calc(100%-2.5rem)] md:w-[calc(50%-2rem)] opacity-0 ml-8 ${
+          isLeft ? "md:ml-0 md:mr-auto" : "md:ml-auto"
+        }`}
       >
         <div className="group relative rounded-2xl bg-white/5 backdrop-blur-xl border border-white/10 p-6 transition-all duration-300 hover:bg-white/[0.08] hover:border-white/20 hover:shadow-[0_0_30px_rgba(0,212,255,0.1)]">
           {/* Connector line (desktop) */}
