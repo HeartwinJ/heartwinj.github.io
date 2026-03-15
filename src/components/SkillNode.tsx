@@ -1,4 +1,3 @@
-import { motion } from "framer-motion";
 import {
   Atom,
   Brain,
@@ -25,12 +24,11 @@ import {
 } from "@phosphor-icons/react";
 import type { SkillCategory } from "../data/skills";
 
-interface SkillNodeProps {
+interface SkillChipProps {
   name: string;
   icon: string;
   category: SkillCategory;
   color: string;
-  index: number;
 }
 
 const iconMap: Record<string, Icon> = {
@@ -62,71 +60,26 @@ const iconMap: Record<string, Icon> = {
   Redis: Database,
 };
 
-function SkillNode({ name, icon, category, color, index }: SkillNodeProps) {
+function SkillChip({ name, icon, color }: SkillChipProps) {
   const IconComponent = iconMap[icon] || Code;
 
   return (
-    <motion.div
-      initial={{ opacity: 0, y: 30 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, margin: "-50px" }}
-      transition={{
-        duration: 0.5,
-        delay: index * 0.05,
-        ease: [0.25, 0.46, 0.45, 0.94],
+    <div
+      className="skill-chip group flex items-center gap-1.5 rounded-full border px-3 py-1.5 text-xs font-medium transition-all duration-200 hover:scale-105"
+      style={{
+        borderColor: `${color}30`,
+        background: `${color}08`,
+        color: "#e0e0e0",
       }}
-      whileHover={{
-        scale: 1.05,
-        y: -4,
-        transition: { type: "spring", stiffness: 400, damping: 25 },
-      }}
-      className="group relative"
     >
-      <div className="relative flex flex-col items-center gap-3 rounded-2xl border border-white/10 bg-white/5 px-5 py-6 backdrop-blur-xl transition-colors duration-300 group-hover:border-transparent">
-        {/* Hover glow border */}
-        <div
-          className="pointer-events-none absolute inset-0 rounded-2xl opacity-0 transition-opacity duration-300 group-hover:opacity-100"
-          style={{
-            boxShadow: `0 0 20px ${color}33, inset 0 0 20px ${color}11`,
-            border: `1px solid ${color}66`,
-            borderRadius: "1rem",
-          }}
-        />
-
-        {/* Icon */}
-        <div
-          className="flex h-12 w-12 items-center justify-center rounded-xl transition-all duration-300"
-          style={{
-            background: `${color}15`,
-          }}
-        >
-          <IconComponent
-            size={28}
-            weight="duotone"
-            className="transition-colors duration-300"
-            style={{ color: color }}
-          />
-        </div>
-
-        {/* Skill name */}
-        <span className="text-sm font-medium text-[#f0f0f0] transition-colors duration-300">
-          {name}
-        </span>
-
-        {/* Category tag revealed on hover */}
-        <span
-          className="absolute -bottom-2 left-1/2 -translate-x-1/2 whitespace-nowrap rounded-full px-2.5 py-0.5 text-[10px] font-semibold uppercase tracking-wider opacity-0 transition-all duration-300 group-hover:-bottom-3 group-hover:opacity-100"
-          style={{
-            background: `${color}22`,
-            color: color,
-            border: `1px solid ${color}44`,
-          }}
-        >
-          {category}
-        </span>
-      </div>
-    </motion.div>
+      <IconComponent
+        size={14}
+        weight="duotone"
+        style={{ color, flexShrink: 0 }}
+      />
+      <span className="whitespace-nowrap">{name}</span>
+    </div>
   );
 }
 
-export default SkillNode;
+export default SkillChip;
