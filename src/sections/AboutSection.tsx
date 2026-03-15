@@ -71,17 +71,13 @@ function renderBioNodes(): React.ReactNode[] {
 }
 
 function AboutSection() {
-  const sectionRef = useRef<HTMLElement>(null);
+  const panelRef = useRef<HTMLDivElement>(null);
   const headingRef = useRef<HTMLHeadingElement>(null);
   const underlineRef = useRef<HTMLDivElement>(null);
   const bioRef = useRef<HTMLParagraphElement>(null);
-  const orb1Ref = useRef<HTMLDivElement>(null);
-  const orb2Ref = useRef<HTMLDivElement>(null);
-  const orb3Ref = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const ctx = gsap.context(() => {
-      // Heading animation
       if (headingRef.current) {
         gsap.fromTo(
           headingRef.current,
@@ -100,7 +96,6 @@ function AboutSection() {
         );
       }
 
-      // Gradient underline animation
       if (underlineRef.current) {
         gsap.fromTo(
           underlineRef.current,
@@ -118,7 +113,6 @@ function AboutSection() {
         );
       }
 
-      // Bio text word-by-word reveal
       if (bioRef.current) {
         const words = bioRef.current.querySelectorAll(".bio-word");
         gsap.fromTo(
@@ -138,105 +132,55 @@ function AboutSection() {
           }
         );
       }
-
-      // Parallax on decorative orbs
-      const orbRefs = [orb1Ref, orb2Ref, orb3Ref];
-      const speeds = [60, -40, 50];
-      orbRefs.forEach((ref, i) => {
-        if (ref.current) {
-          gsap.to(ref.current, {
-            y: speeds[i],
-            ease: "none",
-            scrollTrigger: {
-              trigger: sectionRef.current,
-              start: "top bottom",
-              end: "bottom top",
-              scrub: 1,
-            },
-          });
-        }
-      });
-    }, sectionRef);
+    }, panelRef);
 
     return () => ctx.revert();
   }, []);
 
   return (
-    <section
-      id="about"
-      ref={sectionRef}
-      className="relative overflow-hidden py-24 md:py-32"
-      style={{ backgroundColor: "#0a0a1a" }}
-    >
-      {/* Decorative floating orbs */}
-      <div
-        ref={orb1Ref}
-        className="pointer-events-none absolute -left-32 top-20 h-64 w-64 rounded-full opacity-20 blur-3xl"
-        style={{
-          background: "radial-gradient(circle, #00d4ff 0%, transparent 70%)",
-        }}
-      />
-      <div
-        ref={orb2Ref}
-        className="pointer-events-none absolute -right-24 top-1/2 h-72 w-72 rounded-full opacity-15 blur-3xl"
-        style={{
-          background: "radial-gradient(circle, #7928ca 0%, transparent 70%)",
-        }}
-      />
-      <div
-        ref={orb3Ref}
-        className="pointer-events-none absolute bottom-10 left-1/3 h-48 w-48 rounded-full opacity-15 blur-3xl"
-        style={{
-          background: "radial-gradient(circle, #ff0080 0%, transparent 70%)",
-        }}
-      />
-
+    <div id="about" ref={panelRef} className="relative">
       {/* Decorative geometric shapes */}
       <motion.div
-        className="pointer-events-none absolute right-16 top-32 h-16 w-16 rotate-45 rounded border border-white/5 opacity-30"
+        className="pointer-events-none absolute right-4 top-8 h-12 w-12 rotate-45 rounded border border-white/5 opacity-30 lg:right-8 lg:top-12"
         animate={{ rotate: [45, 135, 225, 315, 405] }}
         transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
       />
       <motion.div
-        className="pointer-events-none absolute bottom-32 left-16 h-12 w-12 rounded-full border border-white/5 opacity-20"
+        className="pointer-events-none absolute bottom-8 left-4 h-8 w-8 rounded-full border border-white/5 opacity-20 lg:left-8"
         animate={{ scale: [1, 1.3, 1] }}
         transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
       />
 
-      <div className="relative mx-auto max-w-6xl px-4">
-        {/* Heading */}
-        <div className="mb-16 text-center">
-          <h2
-            ref={headingRef}
-            className="text-4xl font-bold tracking-tight text-[#f0f0f0] md:text-5xl lg:text-6xl"
-            style={{ fontFamily: "Montserrat, sans-serif", opacity: 0 }}
-          >
-            About Me
-          </h2>
-          <div
-            ref={underlineRef}
-            className="mx-auto mt-4 h-1 w-24 origin-left rounded-full"
-            style={{
-              background: "linear-gradient(135deg, #00d4ff, #7928ca, #ff0080)",
-              transform: "scaleX(0)",
-            }}
-          />
-        </div>
-
-        {/* Bio card */}
-        <div className="mx-auto max-w-3xl">
-          <div className="rounded-2xl border border-white/10 bg-white/5 p-8 backdrop-blur-xl md:p-12">
-            <p
-              ref={bioRef}
-              className="text-lg leading-relaxed text-[#a0a0b0] md:text-xl"
-              style={{ fontFamily: "Montserrat, sans-serif" }}
-            >
-              {renderBioNodes()}
-            </p>
-          </div>
-        </div>
+      {/* Heading */}
+      <div className="mb-8">
+        <h2
+          ref={headingRef}
+          className="text-3xl font-bold tracking-tight text-[#f0f0f0] md:text-4xl lg:text-5xl"
+          style={{ fontFamily: "Montserrat, sans-serif", opacity: 0 }}
+        >
+          About Me
+        </h2>
+        <div
+          ref={underlineRef}
+          className="mt-3 h-1 w-20 origin-left rounded-full"
+          style={{
+            background: "linear-gradient(135deg, #00d4ff, #7928ca, #ff0080)",
+            transform: "scaleX(0)",
+          }}
+        />
       </div>
-    </section>
+
+      {/* Bio card */}
+      <div className="rounded-2xl border border-white/10 bg-white/5 p-6 backdrop-blur-xl md:p-8">
+        <p
+          ref={bioRef}
+          className="text-base leading-relaxed text-[#a0a0b0] md:text-lg"
+          style={{ fontFamily: "Montserrat, sans-serif" }}
+        >
+          {renderBioNodes()}
+        </p>
+      </div>
+    </div>
   );
 }
 

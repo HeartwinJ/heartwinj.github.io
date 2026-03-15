@@ -20,7 +20,7 @@ const skillsByCategory = new Map<SkillCategory, typeof skills>(
 );
 
 function SkillsSection() {
-  const sectionRef = useRef<HTMLElement>(null);
+  const panelRef = useRef<HTMLDivElement>(null);
   const headingRef = useRef<HTMLHeadingElement>(null);
   const underlineRef = useRef<HTMLDivElement>(null);
   const backpackRef = useRef<HTMLDivElement>(null);
@@ -81,7 +81,7 @@ function SkillsSection() {
         );
       }
 
-      const rows = sectionRef.current?.querySelectorAll(".skill-row");
+      const rows = panelRef.current?.querySelectorAll(".skill-row");
       if (rows) {
         gsap.fromTo(
           rows,
@@ -100,72 +100,59 @@ function SkillsSection() {
           }
         );
       }
-    }, sectionRef);
+    }, panelRef);
 
     return () => ctx.revert();
   }, []);
 
   return (
-    <section
-      id="skills"
-      ref={sectionRef}
-      className="relative overflow-hidden py-20 md:py-28"
-      style={{ backgroundColor: "#0a0a1a" }}
-    >
-      {/* Background glow */}
-      <div
-        className="pointer-events-none absolute left-1/2 top-0 h-[400px] w-[600px] -translate-x-1/2 -translate-y-1/2 rounded-full opacity-10 blur-3xl"
-        style={{
-          background: "radial-gradient(ellipse, #7928ca 0%, transparent 70%)",
-        }}
-      />
-
-      <div className="relative mx-auto max-w-4xl px-4">
-        {/* Heading */}
-        <div className="mb-10 text-center">
-          <h2
-            ref={headingRef}
-            className="text-3xl font-bold tracking-tight text-[#f0f0f0] md:text-4xl lg:text-5xl"
-            style={{ fontFamily: "Montserrat, sans-serif", opacity: 0 }}
-          >
-            Skills Backpack
-          </h2>
-          <div
-            ref={underlineRef}
-            className="mx-auto mt-3 h-1 w-24 origin-left rounded-full"
-            style={{
-              background: "linear-gradient(135deg, #00d4ff, #7928ca, #ff0080)",
-              transform: "scaleX(0)",
-            }}
-          />
-        </div>
-
-        {/* Backpack container */}
-        <div
-          ref={backpackRef}
-          className="rounded-2xl border border-white/10 bg-white/[0.03] p-6 backdrop-blur-xl md:p-8"
-          style={{ opacity: 0 }}
+    <div id="skills" ref={panelRef}>
+      {/* Heading */}
+      <div className="mb-8">
+        <h2
+          ref={headingRef}
+          className="text-3xl font-bold tracking-tight text-[#f0f0f0] md:text-4xl lg:text-5xl"
+          style={{ fontFamily: "Montserrat, sans-serif", opacity: 0 }}
         >
-          <div className="space-y-4">
-            {CATEGORIES.map((category) => {
-              const categorySkills = skillsByCategory.get(category) ?? [];
-              const color = categoryColors[category];
+          Skills Backpack
+        </h2>
+        <div
+          ref={underlineRef}
+          className="mt-3 h-1 w-24 origin-left rounded-full"
+          style={{
+            background: "linear-gradient(135deg, #00d4ff, #7928ca, #ff0080)",
+            transform: "scaleX(0)",
+          }}
+        />
+      </div>
 
-              return (
-                <div
-                  key={category}
-                  className="skill-row flex flex-wrap items-center gap-2"
-                  style={{ opacity: 0 }}
+      {/* Backpack container */}
+      <div
+        ref={backpackRef}
+        className="rounded-2xl border border-white/10 bg-white/[0.03] p-5 backdrop-blur-xl md:p-6"
+        style={{ opacity: 0 }}
+      >
+        <div className="space-y-3">
+          {CATEGORIES.map((category) => {
+            const categorySkills = skillsByCategory.get(category) ?? [];
+            const color = categoryColors[category];
+
+            return (
+              <div
+                key={category}
+                className="skill-row grid items-start gap-x-3 gap-y-2"
+                style={{ gridTemplateColumns: "7rem 1fr", opacity: 0 }}
+              >
+                {/* Category label */}
+                <span
+                  className="pt-1.5 text-[11px] font-semibold uppercase tracking-widest"
+                  style={{ color: `${color}cc` }}
                 >
-                  {/* Category label */}
-                  <span
-                    className="mr-1 inline-block w-28 shrink-0 text-[11px] font-semibold uppercase tracking-widest md:w-32"
-                    style={{ color: `${color}cc` }}
-                  >
-                    {category}
-                  </span>
+                  {category}
+                </span>
 
-                  {/* Skill chips */}
+                {/* Skill chips */}
+                <div className="flex flex-wrap gap-2">
                   {categorySkills.map((skill) => (
                     <SkillChip
                       key={skill.name}
@@ -176,12 +163,12 @@ function SkillsSection() {
                     />
                   ))}
                 </div>
-              );
-            })}
-          </div>
+              </div>
+            );
+          })}
         </div>
       </div>
-    </section>
+    </div>
   );
 }
 
