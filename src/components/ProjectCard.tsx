@@ -3,6 +3,20 @@ import { motion } from "framer-motion";
 import { GithubLogo, ArrowSquareOut } from "@phosphor-icons/react";
 import type { ProjectItem } from "../data/projects";
 
+function GitlabIcon({ size = 18 }: { size?: number }) {
+  return (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      width={size}
+      height={size}
+      viewBox="0 0 256 256"
+      fill="currentColor"
+    >
+      <path d="M230.15 117.1 210.25 41a11.94 11.94 0 0 0-22.79-1.11L169.78 88H86.22L68.54 39.87A11.94 11.94 0 0 0 45.75 41L25.85 117.1a57.19 57.19 0 0 0 22.7 60.66l73.27 51.76a11.91 11.91 0 0 0 12.36 0l73.27-51.76a57.19 57.19 0 0 0 22.7-60.66Z" />
+    </svg>
+  );
+}
+
 type ProjectCardProps = ProjectItem;
 
 const categoryGradients: Record<ProjectItem["category"], string> = {
@@ -112,7 +126,11 @@ function ProjectCard({
                   rel="noopener noreferrer"
                   className="flex items-center gap-1.5 text-sm text-[#a0a0b0] hover:text-[#00d4ff] transition-colors duration-200"
                 >
-                  <GithubLogo size={18} weight="bold" />
+                  {githubUrl.includes("gitlab.com") ? (
+                    <GitlabIcon size={18} />
+                  ) : (
+                    <GithubLogo size={18} weight="bold" />
+                  )}
                   <span>Source</span>
                 </a>
               )}

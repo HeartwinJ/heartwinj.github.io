@@ -17,7 +17,8 @@ export const projects: ProjectItem[] = [
     techStack: ["React", "TypeScript", "TailwindCSS", "GSAP"],
     githubUrl: "https://github.com/heartwinj/heartwinj.github.io",
     liveUrl: "https://heartwinj.github.io",
-    image: "portfolio-placeholder",
+    image: "/favicon.svg",
+    imageBg: "url(/images/portfolio-bg.svg) center/cover",
     category: "web",
   },
   {
@@ -69,9 +70,9 @@ export const projects: ProjectItem[] = [
     category: "other",
   },
   {
-    title: "NITPY Website",
+    title: "NITPY Web Presence",
     description:
-      "Developed the official website for NIT Puducherry, featuring academic program listings, faculty directories, event management, and campus information for students and stakeholders.",
+      "Founded the web team at NIT Puducherry and built the official website, alumni portal, results portal, faculty recruitment portal, and various other websites and portals for the institute.",
     techStack: ["Angular", "Django", "MySQL"],
     liveUrl: "https://nitpy.ac.in",
     image: "/images/nitpy-logo.png",
