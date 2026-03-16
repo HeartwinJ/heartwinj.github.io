@@ -71,16 +71,8 @@ const Navbar: React.FC = () => {
               border: "1px solid rgba(255,255,255,0.1)",
             }}
           >
-            <span
-              className="font-bold text-lg tracking-tight"
-              style={{
-                background: "linear-gradient(135deg, #00d4ff, #7928ca, #ff0080)",
-                WebkitBackgroundClip: "text",
-                WebkitTextFillColor: "transparent",
-                backgroundClip: "text",
-              }}
-            >
-              HH
+            <span className="text-xl leading-none" role="img" aria-label="heart">
+              ❤️
             </span>
 
             {/* Desktop links */}

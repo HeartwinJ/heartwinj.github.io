@@ -8,6 +8,7 @@ gsap.registerPlugin(ScrollTrigger);
 
 function ExperienceSection() {
   const headingRef = useRef<HTMLHeadingElement>(null);
+  const underlineRef = useRef<HTMLDivElement>(null);
   const lineRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -32,6 +33,24 @@ function ExperienceSection() {
           },
         }
       );
+
+      // Animate underline
+      if (underlineRef.current) {
+        gsap.fromTo(
+          underlineRef.current,
+          { scaleX: 0 },
+          {
+            scaleX: 1,
+            duration: 1,
+            ease: "power3.out",
+            scrollTrigger: {
+              trigger: underlineRef.current,
+              start: "top 85%",
+              toggleActions: "play none none none",
+            },
+          }
+        );
+      }
 
       // Animate the timeline line growing
       gsap.fromTo(
@@ -61,16 +80,23 @@ function ExperienceSection() {
     >
       <div className="max-w-6xl mx-auto px-4">
         {/* Section heading */}
-        <h2
-          ref={headingRef}
-          className="text-4xl md:text-5xl font-bold text-center mb-16 bg-clip-text text-transparent opacity-0"
-          style={{
-            backgroundImage:
-              "linear-gradient(135deg, #00d4ff, #7928ca, #ff0080)",
-          }}
-        >
-          Experience
-        </h2>
+        <div className="mb-16 flex flex-col items-center">
+          <h2
+            ref={headingRef}
+            className="text-3xl font-bold tracking-tight text-[#f0f0f0] md:text-4xl lg:text-5xl"
+            style={{ fontFamily: "Montserrat, sans-serif", opacity: 0 }}
+          >
+            Experience
+          </h2>
+          <div
+            ref={underlineRef}
+            className="mt-3 h-1 w-20 rounded-full"
+            style={{
+              background: "linear-gradient(135deg, #00d4ff, #7928ca, #ff0080)",
+              transform: "scaleX(0)",
+            }}
+          />
+        </div>
 
         {/* Timeline container */}
         <div className="relative">

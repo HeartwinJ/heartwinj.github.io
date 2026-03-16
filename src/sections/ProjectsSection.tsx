@@ -19,6 +19,7 @@ const filterTabs: { label: string; value: FilterCategory }[] = [
 
 function ProjectsSection() {
   const headingRef = useRef<HTMLHeadingElement>(null);
+  const underlineRef = useRef<HTMLDivElement>(null);
   const gridRef = useRef<HTMLDivElement>(null);
   const [activeFilter, setActiveFilter] = useState<FilterCategory>("all");
 
@@ -29,6 +30,7 @@ function ProjectsSection() {
 
   useEffect(() => {
     const heading = headingRef.current;
+    const underline = underlineRef.current;
     if (!heading) return;
 
     const ctx = gsap.context(() => {
@@ -47,6 +49,23 @@ function ProjectsSection() {
           },
         }
       );
+
+      if (underline) {
+        gsap.fromTo(
+          underline,
+          { scaleX: 0 },
+          {
+            scaleX: 1,
+            duration: 1,
+            ease: "power3.out",
+            scrollTrigger: {
+              trigger: underline,
+              start: "top 85%",
+              toggleActions: "play none none none",
+            },
+          }
+        );
+      }
     });
 
     return () => ctx.revert();
@@ -88,16 +107,23 @@ function ProjectsSection() {
     >
       <div className="max-w-6xl mx-auto px-4">
         {/* Section heading */}
-        <h2
-          ref={headingRef}
-          className="text-4xl md:text-5xl font-bold text-center mb-12 bg-clip-text text-transparent opacity-0"
-          style={{
-            backgroundImage:
-              "linear-gradient(135deg, #00d4ff, #7928ca, #ff0080)",
-          }}
-        >
-          Projects
-        </h2>
+        <div className="mb-12 flex flex-col items-center">
+          <h2
+            ref={headingRef}
+            className="text-3xl font-bold tracking-tight text-[#f0f0f0] md:text-4xl lg:text-5xl"
+            style={{ fontFamily: "Montserrat, sans-serif", opacity: 0 }}
+          >
+            Projects
+          </h2>
+          <div
+            ref={underlineRef}
+            className="mt-3 h-1 w-20 rounded-full"
+            style={{
+              background: "linear-gradient(135deg, #00d4ff, #7928ca, #ff0080)",
+              transform: "scaleX(0)",
+            }}
+          />
+        </div>
 
         {/* Filter tabs */}
         <div className="flex justify-center gap-2 mb-12">
