@@ -13,15 +13,17 @@ function CustomCursor() {
   const ringY = useSpring(0, springConfig);
 
   useEffect(() => {
-    // Detect touch device
-    const mediaQuery = window.matchMedia("(pointer: coarse)");
-    if (mediaQuery.matches) {
+    // Detect touch-only device (skip if any fine pointer exists, e.g. mouse on a touchscreen laptop)
+    const hasFinePointer = window.matchMedia("(any-pointer: fine)").matches;
+    if (!hasFinePointer) {
       isTouch.current = true;
       return;
     }
 
-    // Hide default cursor
-    document.body.style.cursor = "none";
+    // Hide default cursor globally
+    const style = document.createElement("style");
+    style.textContent = "*, *::before, *::after { cursor: none !important; }";
+    document.head.appendChild(style);
 
     const onHoverStart = () => setHovering(true);
     const onHoverEnd = () => setHovering(false);
@@ -60,7 +62,7 @@ function CustomCursor() {
     observer.observe(document.body, { childList: true, subtree: true });
 
     return () => {
-      document.body.style.cursor = "";
+      document.head.removeChild(style);
       window.removeEventListener("mousemove", onMouseMove);
       document.removeEventListener("mouseleave", onMouseLeave);
       observer.disconnect();

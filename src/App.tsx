@@ -16,9 +16,10 @@ import FooterSection from "./sections/FooterSection";
 
 function App() {
   return (
+    <>
+    <CustomCursor />
     <SmoothScroll>
       <div className="font-montserrat bg-cosmic-bg text-[#f0f0f0] relative overflow-x-hidden">
-        <CustomCursor />
         <ScrollProgress />
         <Navbar />
         <AmbientOrbs />
@@ -63,6 +64,7 @@ function App() {
         <FooterSection />
       </div>
     </SmoothScroll>
+    </>
   );
 }
 
