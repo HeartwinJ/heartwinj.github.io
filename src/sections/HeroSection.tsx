@@ -1,53 +1,161 @@
-import { lazy, Suspense, useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef } from "react";
 import { motion } from "framer-motion";
 import { CaretDownIcon } from "@phosphor-icons/react";
-
-const LazyCanvas = lazy(() =>
-  import("@react-three/fiber").then((m) => ({ default: m.Canvas }))
-);
-const LazyHeroScene = lazy(() => import("./HeroScene"));
 
 const GITHUB_AVATAR = "https://github.com/HeartwinJ.png";
 
 const firstNameChars = "Heartwin".split("");
 const lastNameChars = "Haveluck".split("");
 
-const HeroSection: React.FC = () => {
-  const sectionRef = useRef<HTMLElement>(null);
-  const [visible, setVisible] = useState(true);
+/** Canvas 2D starfield — no WebGL, no context loss */
+function Starfield() {
+  const canvasRef = useRef<HTMLCanvasElement>(null);
+  const rafRef = useRef(0);
 
   useEffect(() => {
-    const el = sectionRef.current;
-    if (!el) return;
-    const observer = new IntersectionObserver(
-      ([entry]) => setVisible(entry.isIntersecting),
-      { threshold: 0 }
-    );
-    observer.observe(el);
-    return () => observer.disconnect();
+    const canvas = canvasRef.current;
+    if (!canvas) return;
+    const ctx = canvas.getContext("2d");
+    if (!ctx) return;
+
+    let w = 0;
+    let h = 0;
+
+    interface Star {
+      x: number;
+      y: number;
+      z: number;
+      size: number;
+      color: string;
+      alpha: number;
+      twinkleSpeed: number;
+      twinkleOffset: number;
+    }
+
+    const stars: Star[] = [];
+    const STAR_COUNT = 700;
+    const colors = ["#ffffff", "#ffffff", "#ffffff", "#d0e8ff", "#00d4ff", "#c0b0ff"];
+
+    function resize() {
+      const dpr = Math.min(window.devicePixelRatio || 1, 2);
+      w = canvas!.clientWidth;
+      h = canvas!.clientHeight;
+      canvas!.width = w * dpr;
+      canvas!.height = h * dpr;
+      ctx!.setTransform(dpr, 0, 0, dpr, 0, 0);
+    }
+
+    function initStars() {
+      stars.length = 0;
+      for (let i = 0; i < STAR_COUNT; i++) {
+        const z = Math.random();
+        stars.push({
+          x: Math.random() * w,
+          y: Math.random() * h,
+          z,
+          size: 0.4 + z * 1.2,
+          color: colors[Math.floor(Math.random() * colors.length)],
+          alpha: 0.2 + z * 0.6,
+          twinkleSpeed: 0.3 + Math.random() * 1.5,
+          twinkleOffset: Math.random() * Math.PI * 2,
+        });
+      }
+    }
+
+    resize();
+    initStars();
+
+    let time = 0;
+
+    function draw() {
+      time += 0.016;
+      ctx!.clearRect(0, 0, w, h);
+
+      for (const star of stars) {
+        const twinkle =
+          0.5 + 0.5 * Math.sin(time * star.twinkleSpeed + star.twinkleOffset);
+        const alpha = star.alpha * (0.5 + 0.5 * twinkle);
+
+        ctx!.globalAlpha = alpha;
+        ctx!.fillStyle = star.color;
+        ctx!.beginPath();
+        ctx!.arc(star.x, star.y, star.size, 0, Math.PI * 2);
+        ctx!.fill();
+
+        // Very faint glow on only the brightest stars
+        if (star.z > 0.85) {
+          ctx!.globalAlpha = alpha * 0.08;
+          ctx!.beginPath();
+          ctx!.arc(star.x, star.y, star.size * 4, 0, Math.PI * 2);
+          ctx!.fill();
+        }
+      }
+
+      // Very slow drift
+      for (const star of stars) {
+        star.x -= 0.15 * (0.5 + star.z);
+        if (star.x < -2) {
+          star.x = w + 2;
+          star.y = Math.random() * h;
+        }
+      }
+
+      ctx!.globalAlpha = 1;
+      rafRef.current = requestAnimationFrame(draw);
+    }
+
+    rafRef.current = requestAnimationFrame(draw);
+
+    const onResize = () => {
+      resize();
+      initStars();
+    };
+    window.addEventListener("resize", onResize);
+
+    return () => {
+      cancelAnimationFrame(rafRef.current);
+      window.removeEventListener("resize", onResize);
+    };
   }, []);
 
   return (
+    <canvas
+      ref={canvasRef}
+      className="absolute inset-0 w-full h-full"
+      style={{ opacity: 0.8 }}
+    />
+  );
+}
+
+/** Ambient glow orbs behind the starfield */
+function GlowOrbs() {
+  return (
+    <div className="absolute inset-0 overflow-hidden">
+      <div
+        className="absolute top-1/4 left-1/4 h-64 w-64 rounded-full opacity-20 blur-3xl"
+        style={{ background: "radial-gradient(circle, #00d4ff, transparent 70%)" }}
+      />
+      <div
+        className="absolute bottom-1/3 right-1/4 h-48 w-48 rounded-full opacity-15 blur-3xl"
+        style={{ background: "radial-gradient(circle, #7928ca, transparent 70%)" }}
+      />
+      <div
+        className="absolute top-2/3 left-1/2 h-40 w-40 rounded-full opacity-10 blur-3xl"
+        style={{ background: "radial-gradient(circle, #ff0080, transparent 70%)" }}
+      />
+    </div>
+  );
+}
+
+const HeroSection: React.FC = () => {
+  return (
     <section
-      ref={sectionRef}
       className="h-screen w-screen relative overflow-hidden"
       style={{ background: "#0a0a1a" }}
     >
-      {/* 3D Canvas background — lazy-loaded, paused when off-screen */}
-      <div className="absolute inset-0">
-        {visible && (
-          <Suspense fallback={null}>
-            <LazyCanvas
-              dpr={[1, 1.5]}
-              frameloop="always"
-              camera={{ position: [0, 0, 10], fov: 60 }}
-              gl={{ antialias: false, alpha: true, powerPreference: "low-power" }}
-            >
-              <LazyHeroScene />
-            </LazyCanvas>
-          </Suspense>
-        )}
-      </div>
+      {/* Background layers */}
+      <GlowOrbs />
+      <Starfield />
 
       {/* Overlaid content */}
       <div className="absolute inset-0 flex flex-col items-center justify-center px-6">

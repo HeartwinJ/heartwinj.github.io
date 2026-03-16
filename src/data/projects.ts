@@ -12,8 +12,8 @@ export const projects: ProjectItem[] = [
   {
     title: "heartwinj.github.io",
     description:
-      "This personal portfolio website featuring 3D visuals, GSAP animations, glassmorphic UI, and a cosmic design theme built with React 19.",
-    techStack: ["React", "TypeScript", "TailwindCSS", "GSAP", "Three.js"],
+      "This personal portfolio website featuring GSAP animations, glassmorphic UI, and a cosmic design theme built with React 19.",
+    techStack: ["React", "TypeScript", "TailwindCSS", "GSAP"],
     githubUrl: "https://github.com/heartwinj/heartwinj.github.io",
     liveUrl: "https://heartwinj.github.io",
     image: "portfolio-placeholder",
