@@ -5,6 +5,7 @@ export interface ProjectItem {
   githubUrl?: string;
   liveUrl?: string;
   image: string;
+  imageBg?: string;
   category: "web" | "mobile" | "ai" | "other";
 }
 
@@ -33,7 +34,9 @@ export const projects: ProjectItem[] = [
     description:
       "Built a multilingual job and resource portal for migrant workers as part of a government-sponsored initiative by the Government of Puducherry to improve access to employment and public services.",
     techStack: ["Flutter", "Firebase"],
-    image: "hope-placeholder",
+    githubUrl: "https://gitlab.com/HeartwinJ/hope",
+    image: "/images/hope-logo.png",
+    imageBg: "#ffffff",
     category: "mobile",
   },
   {
@@ -61,7 +64,8 @@ export const projects: ProjectItem[] = [
     techStack: ["TypeScript", "n8n", "Unipile API"],
     githubUrl: "https://github.com/HeartwinJ/n8n-nodes-unipile",
     liveUrl: "https://www.npmjs.com/package/n8n-nodes-unipile",
-    image: "unipile-n8n-placeholder",
+    image: "/images/n8n-logo.png",
+    imageBg: "#ffffff",
     category: "other",
   },
   {
@@ -70,7 +74,8 @@ export const projects: ProjectItem[] = [
       "Developed the official website for NIT Puducherry, featuring academic program listings, faculty directories, event management, and campus information for students and stakeholders.",
     techStack: ["Angular", "Django", "MySQL"],
     liveUrl: "https://nitpy.ac.in",
-    image: "nitpy-placeholder",
+    image: "/images/nitpy-logo.png",
+    imageBg: "#ffffff",
     category: "web",
   },
   {
@@ -79,7 +84,8 @@ export const projects: ProjectItem[] = [
       "A website built for a local tutoring business, featuring course listings, instructor profiles, and an enquiry system to connect students with personalized learning services.",
     techStack: ["Vue 3", "Supabase"],
     liveUrl: "https://timelesstuition.com",
-    image: "timeless-tuition-placeholder",
+    image: "/images/timeless-tuition-logo.svg",
+    imageBg: "url(/images/timeless-tuition-bg.svg) center/cover",
     category: "web",
   },
 ];

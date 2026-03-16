@@ -19,6 +19,7 @@ function ProjectCard({
   githubUrl,
   liveUrl,
   image,
+  imageBg,
   category,
 }: ProjectCardProps) {
   const cardRef = useRef<HTMLDivElement>(null);
@@ -58,17 +59,28 @@ function ProjectCard({
           transformStyle: "preserve-3d",
         }}
       >
-        {/* Image placeholder */}
+        {/* Image / placeholder */}
         <div
           className="h-44 w-full flex items-center justify-center relative overflow-hidden"
           style={{
-            background: categoryGradients[category],
+            background: imageBg || categoryGradients[category],
           }}
         >
-          <span className="text-white/30 text-sm font-medium tracking-wider uppercase">
-            {image}
-          </span>
-          <div className="absolute inset-0 bg-black/20" />
+          {image && !image.endsWith("-placeholder") ? (
+            <img
+              src={image}
+              alt={title}
+              className="absolute inset-0 w-full h-full object-contain p-6"
+              loading="lazy"
+            />
+          ) : (
+            <span className="text-white/30 text-sm font-medium tracking-wider uppercase">
+              {title}
+            </span>
+          )}
+          {!imageBg && (
+            <div className="absolute inset-0 bg-black/20 pointer-events-none" />
+          )}
         </div>
 
         {/* Content */}
