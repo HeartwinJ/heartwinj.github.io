@@ -1,13 +1,4 @@
-@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@100;200;300;400;500;600;700;800;900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Mona+Sans:wdth,wght@75..125,200..900&family=Martian+Mono:wdth,wght@75..112.5,100..800&display=swap");
 
 @import "tailwindcss";
 @import "./styles/theme.css";
-
-@theme {
-  --font-montserrat: "Montserrat", sans-serif;
-  --color-cosmic-bg: #0a0a1a;
-  --color-cosmic-surface: rgba(255, 255, 255, 0.05);
-  --color-accent-cyan: #00d4ff;
-  --color-accent-purple: #7928ca;
-  --color-accent-pink: #ff0080;
-}

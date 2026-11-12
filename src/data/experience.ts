@@ -8,30 +8,30 @@ export interface ExperienceItem {
 export const experiences: ExperienceItem[] = [
   {
     companyName: "Winjit Technologies",
-    position: "Full Stack Developer",
-    period: "Jan 2022 - Present",
+    position: "Senior Software Engineer",
+    period: "Jan 2022 – Now",
     description:
-      "Led and launched core projects, improved web presence, and maintained code quality using VueJS and TailwindCSS.",
+      "Own core projects from first commit to launch: make the architecture calls, review the code, and keep the codebase honest as it grows. Also the reason the company's web presence got sharper.",
+  },
+  {
+    companyName: "Freelance",
+    position: "Whatever the project needs",
+    period: "2021 – Now",
+    description:
+      "Web and mobile apps for people who needed one, built with React, Node.js and Flutter.",
   },
   {
     companyName: "Serturner",
     position: "Full Stack Developer",
-    period: "Apr 2021 - Sep 2021",
+    period: "Apr – Sep 2021",
     description:
-      "Implemented various optimization techniques to improve performance of the company's website and webstore",
-  },
-  {
-    companyName: "Freelance Developer",
-    position: "Multiple roles",
-    period: "2021 - Present",
-    description:
-      "Worked on various freelance projects, including web and mobile applications, using technologies like React, Node.js, and Flutter.",
+      "Made the company website and web store faster, one optimisation at a time.",
   },
   {
     companyName: "Insfyre",
-    position: "Intern Flutter Developer",
-    period: "Oct 2020 - Feb 2021",
+    position: "Flutter Developer, Intern",
+    period: "Oct 2020 – Feb 2021",
     description:
-      "Designed and developed multiple mobile applications using Flutter, contributing to the startup's product offerings",
+      "Designed and built several Flutter apps for a young startup's product line. Where Flutter and I got serious.",
   },
 ];

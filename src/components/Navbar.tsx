@@ -1,162 +1,91 @@
-import { useState, useEffect, useCallback } from "react";
-import { motion, AnimatePresence } from "framer-motion";
-import { ListIcon, XIcon } from "@phosphor-icons/react";
+import { useEffect, useState } from "react";
 
 const NAV_LINKS = [
   { label: "About", href: "#about" },
-  { label: "Skills", href: "#skills" },
+  { label: "Work", href: "#work" },
   { label: "Experience", href: "#experience" },
-  { label: "Projects", href: "#projects" },
+  { label: "Skills", href: "#skills" },
   { label: "Contact", href: "#contact" },
 ];
 
-const Navbar: React.FC = () => {
-  const [visible, setVisible] = useState(false);
-  const [activeSection, setActiveSection] = useState("");
-  const [mobileOpen, setMobileOpen] = useState(false);
+function Navbar() {
+  const [solid, setSolid] = useState(false);
+  const [open, setOpen] = useState(false);
+  const [active, setActive] = useState("");
 
   useEffect(() => {
-    const handleScroll = () => {
-      setVisible(window.scrollY > window.innerHeight * 0.8);
-    };
-    window.addEventListener("scroll", handleScroll, { passive: true });
-    handleScroll();
-    return () => window.removeEventListener("scroll", handleScroll);
+    const onScroll = () => setSolid(window.scrollY > 24);
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
   useEffect(() => {
     const observer = new IntersectionObserver(
       (entries) => {
         for (const entry of entries) {
-          if (entry.isIntersecting) {
-            setActiveSection(`#${entry.target.id}`);
-          }
+          if (!entry.isIntersecting) continue;
+          setActive(entry.target.id === "top" ? "" : `#${entry.target.id}`);
         }
       },
-      { rootMargin: "-40% 0px -40% 0px", threshold: 0 }
+      { rootMargin: "-45% 0px -50% 0px" }
     );
-
-    const sections = NAV_LINKS.map((link) =>
-      document.querySelector(link.href)
-    ).filter(Boolean) as Element[];
-
-    sections.forEach((section) => observer.observe(section));
+    [{ href: "#top" }, ...NAV_LINKS].forEach(({ href }) => {
+      const el = document.querySelector(href);
+      if (el) observer.observe(el);
+    });
     return () => observer.disconnect();
   }, []);
 
-  const scrollTo = useCallback((href: string) => {
-    const el = document.querySelector(href);
-    if (el) {
-      el.scrollIntoView({ behavior: "smooth" });
-    }
-    setMobileOpen(false);
-  }, []);
-
   return (
-    <AnimatePresence>
-      {visible && (
-        <motion.nav
-          initial={{ y: -80, opacity: 0 }}
-          animate={{ y: 0, opacity: 1 }}
-          exit={{ y: -80, opacity: 0 }}
-          transition={{ type: "spring", damping: 25, stiffness: 200 }}
-          className="fixed top-4 left-1/2 -translate-x-1/2 z-[9998] w-[calc(100%-2rem)] max-w-5xl"
-        >
-          <div
-            className="rounded-2xl px-6 py-3 flex items-center justify-between"
-            style={{
-              background: "rgba(255,255,255,0.05)",
-              backdropFilter: "blur(24px)",
-              WebkitBackdropFilter: "blur(24px)",
-              border: "1px solid rgba(255,255,255,0.1)",
-            }}
-          >
-            <span className="text-xl leading-none" role="img" aria-label="heart">
-              ❤️
-            </span>
+    <header className={`nav ${solid || open ? "nav--solid" : ""}`}>
+      <div className="wrap nav__inner">
+        <a href="#top" className="nav__brand" onClick={() => setOpen(false)}>
+          heartwin
+        </a>
 
-            {/* Desktop links */}
-            <div className="hidden md:flex items-center gap-6">
-              {NAV_LINKS.map((link) => (
-                <button
-                  key={link.href}
-                  onClick={() => scrollTo(link.href)}
-                  className="relative text-sm font-medium transition-colors duration-200"
-                  style={{
-                    color:
-                      activeSection === link.href ? "#00d4ff" : "#a0a0b0",
-                  }}
-                >
+        <nav aria-label="Main">
+          <ul className="nav__links">
+            {NAV_LINKS.map((link) => (
+              <li key={link.href}>
+                <a href={link.href} aria-current={active === link.href}>
                   {link.label}
-                  {activeSection === link.href && (
-                    <motion.span
-                      layoutId="nav-underline"
-                      className="absolute -bottom-1 left-0 right-0 h-[2px]"
-                      style={{
-                        background:
-                          "linear-gradient(90deg, #00d4ff, #7928ca)",
-                      }}
-                      transition={{
-                        type: "spring",
-                        damping: 25,
-                        stiffness: 300,
-                      }}
-                    />
-                  )}
-                </button>
-              ))}
-            </div>
+                </a>
+              </li>
+            ))}
+          </ul>
+        </nav>
 
-            {/* Mobile hamburger */}
-            <button
-              className="md:hidden text-[#f0f0f0]"
-              onClick={() => setMobileOpen((prev) => !prev)}
-              aria-label="Toggle menu"
-            >
-              {mobileOpen ? <XIcon size={24} /> : <ListIcon size={24} />}
-            </button>
-          </div>
+        <a href="#contact" className="btn btn--sm nav__cta">
+          Say hello
+        </a>
 
-          {/* Mobile menu */}
-          <AnimatePresence>
-            {mobileOpen && (
-              <motion.div
-                initial={{ height: 0, opacity: 0 }}
-                animate={{ height: "auto", opacity: 1 }}
-                exit={{ height: 0, opacity: 0 }}
-                transition={{ duration: 0.25 }}
-                className="overflow-hidden mt-2 rounded-xl"
-                style={{
-                  background: "rgba(255,255,255,0.05)",
-                  backdropFilter: "blur(24px)",
-                  WebkitBackdropFilter: "blur(24px)",
-                  border: "1px solid rgba(255,255,255,0.1)",
-                }}
-              >
-                <div className="flex flex-col py-2">
-                  {NAV_LINKS.map((link) => (
-                    <button
-                      key={link.href}
-                      onClick={() => scrollTo(link.href)}
-                      className="px-6 py-3 text-left text-sm font-medium transition-colors duration-200"
-                      style={{
-                        color:
-                          activeSection === link.href
-                            ? "#00d4ff"
-                            : "#a0a0b0",
-                      }}
-                    >
-                      {link.label}
-                    </button>
-                  ))}
-                </div>
-              </motion.div>
-            )}
-          </AnimatePresence>
-        </motion.nav>
+        <button
+          type="button"
+          className="nav__menu-btn"
+          aria-expanded={open}
+          aria-controls="nav-sheet"
+          onClick={() => setOpen((v) => !v)}
+        >
+          {open ? "Close" : "Menu"}
+        </button>
+      </div>
+
+      {open && (
+        <div className="nav__sheet" id="nav-sheet">
+          <ul className="wrap">
+            {NAV_LINKS.map((link) => (
+              <li key={link.href}>
+                <a href={link.href} onClick={() => setOpen(false)}>
+                  {link.label}
+                </a>
+              </li>
+            ))}
+          </ul>
+        </div>
       )}
-    </AnimatePresence>
+    </header>
   );
-};
+}
 
 export default Navbar;
